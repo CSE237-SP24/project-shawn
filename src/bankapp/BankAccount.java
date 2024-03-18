@@ -16,6 +16,16 @@ public class BankAccount {
 		}
 		this.balance += amount;
 	}
+
+	public void withdraw(double amount) {
+		if(amount < 0) {
+			throw new IllegalArgumentException("Amount must be positive");
+		}else if(amount > balance) {
+			System.out.println("Unsufficient balance. You only have "+balance+" and are trying to withdraw "+amount);
+			throw new IllegalArgumentException("Insufficient Funds to withdraw");
+		}
+		this.balance -= amount;
+	}
 	
 	//getters and setters - not tested
 	public double getBalance() {
