@@ -24,34 +24,13 @@ public class Menu {
 	//Code that just displays stuff - no tests needed
 	public void displayingOptions() {
 		System.out.println("Select an option number: ");
-		System.out.println("1: Deposit");
-		System.out.println("2: Withdraw");
-		System.out.println("3: View Balance");
-		
+		System.out.println("1. Deposit");
+		System.out.println("2. Withdraw");
+	    System.out.println("3. View Balance");
 	}
 	
-	public void processingUserSelection(int option) {
-		switch(option) {
-			// Deposit
-			case 1:
-				double depositAmount = getValidUserInput();
-				account.deposit(depositAmount);
-			// Withdraw
-			case 2:
-				double withdrawAmount = getValidUserInput();
-				
-				try {
-					account.withdraw(withdrawAmount);
-					System.out.println("Withdrawal successful. Your balance is now: " + account.getBalance());
-				}
-				catch (IllegalArgumentException e) {
-	                System.out.println("Insufficient funds. Withdrawal failed.");
-				}
-			// View balance	
-			case 3:
-				System.out.println("Your current balance is: " + account.getBalance());
-				
-		}
+	public void handleUserSelection(int option) {
+	    
 	}
 	
 	//Code that gets user input
@@ -67,14 +46,34 @@ public class Menu {
 	}
 	
 	//Does work - needs tests
-	public void processingUserSelection(double amount) {
-		account.deposit(amount);
-		System.out.println("Your balance is now: " + account.getBalance());
-	}
-	
+	public void processingUserSelection(int option) {
+		switch (option) {
+		//Deposit
+        case 1:
+            double depositAmount = getValidUserInput();
+            account.deposit(depositAmount);
+            System.out.println("Deposit successful. Your balance is now: " + account.getBalance());
+            break;
+        //Withdraw
+        case 2:
+            double withdrawAmount = getValidUserInput();
+            try {
+                account.withdraw(withdrawAmount);
+                System.out.println("Withdrawal successful. Your balance is now: " + account.getBalance());
+            } catch (InsufficientFundsException e) {
+                System.out.println("Insufficient funds. Withdrawal failed.");
+            }
+            break;
+        //View Balance
+        case 3:
+            System.out.println("Your current balance is: " + account.getBalance());
+            break;
+        default:
+            System.out.println("Invalid option. Please try again.");
+		}
+    }
+		
 	public BankAccount getAccount() {
 		return account;
 	}
-	
-
 }
