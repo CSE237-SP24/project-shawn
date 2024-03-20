@@ -90,14 +90,7 @@ public class Menu {
 	            
 	        //Withdraw
 	        case WITHDRAW_OPTION:
-	        	
 	        	processingWithdraw();
-//	            try {
-//	            	processingWithdraw();
-//	                System.out.println("Withdrawal successful. Your balance is now: " + account.getBalance());
-//	            } catch (IllegalArgumentException e) {
-//	                System.out.println("Insufficient funds. Withdrawal failed.");
-//	            }
 	            break;
 	            
 	        //View Balance
