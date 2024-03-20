@@ -41,7 +41,7 @@ public class Menu {
 		
 		while (continueProgram) {
 			displayingOptions();
-			userOption = getValidUserOption();
+			getValidUserOption();
 			
 			processingUserSelection();
 			
@@ -56,8 +56,9 @@ public class Menu {
 	}
 	
 	//Get valid user option (either 1, 2, or 3)
-	public int getValidUserOption() {
-	    int option;
+	public void getValidUserOption() {
+		int option;
+		
 	    while (true) {
 	        if (in.hasNextInt()) {
 	        	
@@ -74,9 +75,10 @@ public class Menu {
 	            System.out.println("Invalid option! Please enter a number between 1 and 3.");
 	        }
 	    }
-	    return option;
+	    setOption(option);
 	}
 	
+	//Test
 	//Process bank account based on chosen option
 	public void processingUserSelection() {
 		switch (userOption) {
@@ -88,12 +90,14 @@ public class Menu {
 	            
 	        //Withdraw
 	        case WITHDRAW_OPTION:
-	            try {
-	            	processingWithdraw();
-	                System.out.println("Withdrawal successful. Your balance is now: " + account.getBalance());
-	            } catch (IllegalArgumentException e) {
-	                System.out.println("Insufficient funds. Withdrawal failed.");
-	            }
+	        	
+	        	processingWithdraw();
+//	            try {
+//	            	processingWithdraw();
+//	                System.out.println("Withdrawal successful. Your balance is now: " + account.getBalance());
+//	            } catch (IllegalArgumentException e) {
+//	                System.out.println("Insufficient funds. Withdrawal failed.");
+//	            }
 	            break;
 	            
 	        //View Balance
@@ -106,6 +110,7 @@ public class Menu {
 		}
     }
 	
+	//Test
 	//Process deposit operation
 	public void processingDeposit(){
 		System.out.println("How much money do you want to deposit?");
@@ -121,6 +126,7 @@ public class Menu {
 		account.deposit(amount);
 	}
 	
+	//Test
 	//Process withdraw operation
 	public void processingWithdraw(){
 		System.out.println("How much money do you want to withdraw?");
@@ -133,7 +139,12 @@ public class Menu {
 			amount = in.nextDouble();
 		}
 		
-		account.withdraw(amount);
+		try {
+			account.withdraw(amount);
+            System.out.println("Withdrawal successful. Your balance is now: " + account.getBalance());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Insufficient funds. Withdrawal failed.");
+        }
 	}
 	
 		
