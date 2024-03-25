@@ -3,13 +3,12 @@ package bankapp;
 public class BankAccount {
 
 	private double balance;
-	private int accountId;
+	private String accountId;
 
 	// Constructors - not tested
-	public BankAccount() {
-		this.balance = 0;
-
-
+	public BankAccount(String accountId,double balance) {
+		this.balance = balance;
+		this.accountId = accountId;
 	}
 
 	// public method doing some work - lots of tests

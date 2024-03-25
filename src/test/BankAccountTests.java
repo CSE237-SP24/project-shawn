@@ -12,7 +12,7 @@ class BankAccountTests {
 	void testSimpleDeposit() {
 		// 1. Setup Objects
 
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null,0);
 
 		// 2. Call the method being tested
 		testAccount.deposit(25);
@@ -24,7 +24,7 @@ class BankAccountTests {
 	@Test
 	void testNegativeDeposit() {
 		// 1. Setup Objects
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		// 2. Call the method being tested
 		try {
@@ -39,7 +39,7 @@ class BankAccountTests {
 	@Test
 	void testNegativeWithdraw() {
 		// 1. Setup objects
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		// 2. Call the method being tested
 		try {
@@ -54,7 +54,7 @@ class BankAccountTests {
 	@Test
 	void testSimpleWithdraw() {
 		// 1. Setup objects
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		testAccount.deposit(25);
 
@@ -68,7 +68,7 @@ class BankAccountTests {
 	@Test
 	void testInsufficientFundWithdraw() {
 		// 1. Setup objects
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		testAccount.deposit(25);
 
@@ -85,11 +85,11 @@ class BankAccountTests {
 
 	@Test
 	void testSimpleTransaction() {
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		testAccount.deposit(100);
 
-		BankAccount targetAccount = new BankAccount();
+		BankAccount targetAccount = new BankAccount(null, 0);
 
 		testAccount.transaction(targetAccount, 30);
 
@@ -101,11 +101,11 @@ class BankAccountTests {
 	@Test
 	void testNegativeTransaction() {
 
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		testAccount.deposit(100);
 
-		BankAccount targetAccount = new BankAccount();
+		BankAccount targetAccount = new BankAccount(null, 0);
 
 		try {
 			testAccount.transaction(targetAccount, -30);
@@ -117,11 +117,11 @@ class BankAccountTests {
 	@Test
 	void testInsufficientTransaction() {
 
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		testAccount.deposit(100);
 
-		BankAccount targetAccount = new BankAccount();
+		BankAccount targetAccount = new BankAccount(null, 0);
 
 		try {
 			testAccount.transaction(targetAccount, 200);
@@ -133,7 +133,7 @@ class BankAccountTests {
 	@Test
 	void testInvalidTargetTransaction() {
 
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount(null, 0);
 
 		testAccount.deposit(100);
 
