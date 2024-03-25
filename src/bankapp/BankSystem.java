@@ -19,11 +19,14 @@ public class BankSystem {
 		this.accountPassword = new HashMap<>();
 		try {
 			this.in = new Scanner(passwordData);
-			while(in.hasNext()) {
-				String account = in.next();
-				String password = in.next();
-				in.nextLine();
-				this.accountPassword.put(account, password);
+			while(in.hasNextLine()) {
+				String line = in.nextLine();
+				String[] parts = line.split(" ", 2);
+				if (parts.length >= 2) { // Make sure there are two parts
+                    String account = parts[0];
+                    String password = parts[1];
+    				this.accountPassword.put(account, password);
+                }
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -31,16 +34,40 @@ public class BankSystem {
 		}
 		try {
 			this.in = new Scanner(balanceData);
-			while(in.hasNext()) {
-				String account = in.next();
-				String balance = in.next();
-				in.nextLine();
-				this.accountBalance.add(new BankAccount(account,Double.parseDouble(balance)));
+			while(in.hasNextLine()) {
+				String line = in.nextLine();
+				String[] parts = line.split(" ", 2);
+				if (parts.length >= 2) { // Make sure there are two parts
+                    String account = parts[0];
+                    double balance = Double.parseDouble(parts[1]);
+    				this.accountBalance.put(account, new BankAccount(account,balance));
+                }
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	private boolean checkState() {
+		return !(this.currentAccount == null);
+	}
+	public double getBalance() {
+		if(!this.checkState()) {
+			throw new IllegalArgumentException("you are not login");
+		}
+		return this.currentAccount.getBalance();
+	}
+	public void deposit(double num) {
+		if(!this.checkState()) {
+			throw new IllegalArgumentException("you are not login");
+		}
+		this.currentAccount.deposit(num);
+	}
+	public void withdraw(double num) {
+		if(!this.checkState()) {
+			throw new IllegalArgumentException("you are not login");
+		}
+		this.currentAccount.withdraw(num);
 	}
 	public boolean login(String account, String password) {
 		if(!this.accountPassword.containsKey(account)) {
@@ -53,15 +80,45 @@ public class BankSystem {
 		return false;
 	}
 	public void logout() {
-		this.currentAccount = null;
+	    this.currentAccount = null;
+	    try {
+	        writePasswordsToFile();
+	        writeBalancesToFile();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace(); // Again, consider a better error handling strategy
+	    }
 	}
-	public boolean createAccount(String account,String password) {
-		if(this.accountPassword.containsKey(account)) {
-			return false;
-		}
-		this.accountPassword.put(account, password);
-		this.accountBalance.put(account,new BankAccount(account,0));
-		return true;
+	public boolean createAccount(String account, String password) {
+	    if (accountPassword.containsKey(account)) {
+	        return false;
+	    }
+	    accountPassword.put(account, password);
+	    accountBalance.put(account, new BankAccount(account, 0));
+	    try {
+	        writePasswordsToFile();
+	        writeBalancesToFile();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace(); // Consider a better error handling strategy for your context
+	    }
+	    this.currentAccount = accountBalance.get(account);
+	    return true;
 	}
+
+	private void writePasswordsToFile() throws FileNotFoundException {
+	    PrintWriter out = new PrintWriter(passwordData);
+	    for (Map.Entry<String, String> entry : accountPassword.entrySet()) {
+	        out.println(entry.getKey() + " " + entry.getValue());
+	    }
+	    out.close();
+	}
+
+	private void writeBalancesToFile() throws FileNotFoundException {
+	    PrintWriter out = new PrintWriter(balanceData);
+	    for (Map.Entry<String, BankAccount> entry : accountBalance.entrySet()) {
+	        out.println(entry.getKey() + " " + entry.getValue().getBalance());
+	    }
+	    out.close();
+	}
+
 	
 }
