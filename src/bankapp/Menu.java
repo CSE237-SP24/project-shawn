@@ -21,7 +21,7 @@ public class Menu {
 	//Constructor
 	public Menu() {
 		this.in = new Scanner(System.in);
-		this.account = new BankAccount();
+		this.account = new BankAccount(null,0);
 		this.userOption = 0;
 	}
 	
