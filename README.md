@@ -20,6 +20,8 @@ but rather required behavior), and for it to continue allowing you to withdraw o
 Djikstra has created a way for different users to make transactions together, but as we dont have bank accounts implemented yet,
 this functionality is not really working, and as such is not included in the options that you will see in the menu.
 
+Shawn has create a BankSystem that can use file to store user data. He add functionality for user to create account, login, and logout account, but currently not incorporate it to the user menu. He also do the code review for every pull request and make the script.sh for the project.
+
 We were also attempting to add storage of the bank accounts throughout different sessions of using the program,
 but that did not end up working
 
