@@ -107,28 +107,49 @@ public class Menu {
 	//Process deposit operation
 	public void processingDeposit(){
 		System.out.println("How much money do you want to deposit?");
-		double amount = in.nextDouble();
 		
+		catchNonNumericInput(in);
+		
+		while (!in.hasNextInt()) {
+			System.out.println("Invalid value!");
+			System.out.println("How much money do you want to deposit?");
+			
+			in.next();
+		}
+		
+		double amount = in.nextInt();
+
 		//If amount is negative, ask user again
 		while(amount < 0) {
 			System.out.println("Invalid value!");
 			System.out.println("How much money do you want to deposit?");
+			
+			catchNonNumericInput(in);
+
 			amount = in.nextDouble();
 		}
 		
 		account.deposit(amount);
+		
+		
 	}
 	
 	//Test
 	//Process withdraw operation
 	public void processingWithdraw(){
 		System.out.println("How much money do you want to withdraw?");
+		
+		catchNonNumericInput(in);
+		
 		double amount = in.nextDouble();
 		
 		//If amount is negative, ask user again
 		while(amount < 0) {
 			System.out.println("Invalid value!");
 			System.out.println("How much money do you want to withdraw?");
+			
+			catchNonNumericInput(in);
+			
 			amount = in.nextDouble();
 		}
 		
@@ -138,6 +159,16 @@ public class Menu {
         } catch (IllegalArgumentException e) {
             System.out.println("Insufficient funds. Withdrawal failed.");
         }
+	}
+	
+	public void catchNonNumericInput(Scanner in) {
+		while (!in.hasNextInt()) {
+			System.out.println("Invalid value!");
+			System.out.println("How much money do you want to deposit?");
+			
+			in.next();
+		}
+		return;
 	}
 	
 		
