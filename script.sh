@@ -1,12 +1,9 @@
 #!/bin/bash
-
-# 进入包含 Java 源文件的目录
+#get to src
 cd src
-
-# 编译 bankapp 包下的所有 Java 文件
+# compile file
 javac bankapp/*.java
-
-# 运行 Menu 类，假设它包含 main 方法
+#run code
 java bankapp.Menu
 
 
